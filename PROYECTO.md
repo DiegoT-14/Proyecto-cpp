@@ -89,8 +89,8 @@ Los archivos .h son los siguientes:
 - Paciente.h
 - ArchivoPacientes.h
 - Lectura.h
-- Maquina.h
 - Medicion.h
+- Maquina.h
 - Sala.h
 ```cpp
 #include <iostream>
