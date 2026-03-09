@@ -1,4 +1,5 @@
-# Proyecto-cpp-biomedica. Diego Alejandro Torres Cely, Juan Carlos Muñoz^2
+# Proyecto-cpp
+## Diego Alejandro Torres Cely, Juan Carlos Muñoz^2
 
 ## Librerias implementadas
 
