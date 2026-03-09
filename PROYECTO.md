@@ -95,15 +95,21 @@ Los archivos .h son los siguientes:
 
 ## Configuración.h
 Yo
+
 ## Pacientes.h
 Yo
+
 ## ArchivoPacientes.h
 TORO
+
 ## Lectura.h
 TORO
+
 ## Medición.h
 YO
+
 ## Máquina.h
 TORO
+
 ## Sala.h
 CHAT
