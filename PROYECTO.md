@@ -11,6 +11,7 @@ Una parte fundamental del programa recae en las librerías que son usadas para l
 
 Esta librería permite el uso de la clase `string` en C++. Esta clase facilita la manipulación de cadenas de texto de forma segura y flexible. Dentro de sus funciones se encuentra `.c_str()`, la cual permite convertir un objeto `string` en un **C-string** (arreglo de caracteres terminado en `\0`), lo cual resulta útil cuando se requiere compatibilidad con funciones de la librería `<cstring>` o con operaciones de bajo nivel.
 
+
 ```cpp
 <sstream>
 ```
