@@ -100,9 +100,20 @@ int main() {
 }
 ```
 
-## Declaración de estructuras
-## Funciones
-
+## Configuración.h
+Yo
+## Pacientes.h
+Yo
+## ArchivoPacientes.h
+TORO
+## Lectura.h
+TORO
+## Medición.h
+YO
+## Máquina.h
+TORO
+## Sala.h
+CHAT
 
 
 ### Hola
