@@ -1,5 +1,5 @@
 # Proyecto-cpp
-## Diego Alejandro Torres Cely, Juan Carlos Muñoz^2
+## Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
 
 ## Librerias implementadas
 
