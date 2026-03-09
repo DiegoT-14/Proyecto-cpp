@@ -10,7 +10,7 @@ int main() {
 ```
 ## Librerias implementadas
 ## Declaración de estructuras
-## Funciones
+## FuncionesS
 
 
 
