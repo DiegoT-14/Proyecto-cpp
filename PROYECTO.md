@@ -114,6 +114,3 @@ YO
 TORO
 ## Sala.h
 CHAT
-
-
-### Hola
