@@ -85,14 +85,12 @@ En primera instancia, se crearon un total de 7 archivos .h, dentro de los cuales
 
 Los archivos .h son los siguientes:
 
-- ArchivoPacientes.h
-  
-  
 - Configuracion.h
+- Paciente.h
+- ArchivoPacientes.h
 - Lectura.h
 - Maquina.h
 - Medicion.h
-- Paciente.h
 - Sala.h
 ```cpp
 #include <iostream>
