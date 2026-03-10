@@ -92,8 +92,139 @@ Los archivos .h son los siguientes:
 - Maquina.h
 - Sala.h
 
-## Configuración.h
-Yo
+## Configuracion.h
+
+Este archivo define las estructuras necesarias para **gestionar los valores de configuración del sistema**, los cuales establecen los rangos mínimos y máximos permitidos para diferentes variables médicas monitoreadas.
+
+Estos valores son leídos desde el archivo **configuracion.txt**, el cual contiene los rangos permitidos para cada una de las variables fisiológicas analizadas por el sistema.
+
+Dentro de este archivo se definen dos estructuras principales: **Rango** y **Configuracion**.
+
+---
+
+### Estructura Rango
+
+La estructura **Rango** se utiliza para representar los límites mínimo y máximo permitidos para una variable médica específica.
+
+Dentro de esta estructura se declaran dos atributos principales:
+
+- double min  
+  Representa el valor mínimo permitido para una determinada variable.
+
+- double max  
+  Representa el valor máximo permitido para dicha variable.
+
+Esta estructura permite almacenar de forma organizada los límites aceptables de cada señal médica evaluada por el sistema.
+
+---
+
+### Estructura Configuracion
+
+La estructura **Configuracion** se utiliza para almacenar los rangos permitidos de todas las variables fisiológicas que son analizadas dentro del sistema.
+
+Para cada variable se utiliza un atributo de tipo **Rango**, lo cual permite almacenar de manera clara sus valores mínimo y máximo.
+
+Los atributos definidos dentro de esta estructura son los siguientes:
+
+- Rango temperatura  
+  Almacena los valores mínimo y máximo permitidos para la temperatura corporal.
+
+- Rango presion_sistolica  
+  Representa los límites permitidos para la presión arterial sistólica.
+
+- Rango presion_diastolica  
+  Representa los límites permitidos para la presión arterial diastólica.
+
+- Rango oxigeno  
+  Almacena el rango permitido para el nivel de saturación de oxígeno en sangre.
+
+- Rango ecg  
+  Contiene los valores mínimo y máximo permitidos para las señales provenientes del electrocardiograma.
+
+Cada uno de estos atributos será cargado posteriormente con los valores obtenidos desde el archivo de configuración.
+
+---
+
+### Separación de datos del archivo de configuración
+
+Dentro de la estructura **Configuracion** se define la función:
+
+```cpp
+void separarLineaConfig(std::string linea, char resultado[3][20])
+```
+
+Esta función se encarga de **procesar cada línea del archivo de configuración y separar sus diferentes campos de información**.
+
+El formato esperado dentro del archivo es el siguiente:
+
+```
+VARIABLE,MIN,MAX
+```
+
+Donde:
+
+- **VARIABLE** indica el tipo de señal médica.
+- **MIN** corresponde al valor mínimo permitido.
+- **MAX** corresponde al valor máximo permitido.
+
+Para realizar esta separación se utiliza **stringstream**, el cual permite tratar la línea de texto como un flujo de datos y dividirla utilizando la coma **','** como delimitador.
+
+El proceso realizado por esta función es el siguiente:
+
+1. Recibe una línea completa del archivo de configuración.
+2. Convierte la línea en un flujo de datos utilizando **stringstream**.
+3. Separa cada elemento utilizando **getline** con el delimitador ','.
+4. Copia cada uno de los valores obtenidos en el arreglo **resultado**, el cual almacena:
+   - resultado[0] → tipo de variable  
+   - resultado[1] → valor mínimo  
+   - resultado[2] → valor máximo  
+
+---
+
+### Carga de datos en la estructura
+
+Posteriormente se define la función:
+
+```cpp
+void cargarDatosConfig(char resultado[3][20])
+```
+
+Esta función tiene como objetivo **asignar los valores mínimos y máximos obtenidos desde el archivo de configuración a los atributos correspondientes de la estructura Configuracion**.
+
+Para lograr esto se realiza el siguiente procedimiento:
+
+1. Se identifica el tipo de variable utilizando la función **strcmp**.
+2. Dependiendo del identificador encontrado, se determina a qué atributo de la estructura corresponde el rango.
+3. Los valores mínimo y máximo son convertidos de texto a tipo **double** utilizando la función **atof**.
+4. Finalmente estos valores son almacenados en la estructura **Rango** correspondiente.
+
+De esta manera, cada línea del archivo de configuración actualiza los valores de la variable médica correspondiente dentro del sistema.
+
+---
+
+### Lectura del archivo de configuración
+
+Finalmente se define la función:
+
+```cpp
+int leer_archivo_configuracion()
+```
+
+Esta función es la encargada de **leer el archivo configuracion.txt y cargar todos los rangos definidos dentro de la estructura Configuracion**.
+
+El procedimiento que realiza esta función es el siguiente:
+
+1. Se define la ruta del archivo de configuración ubicado en **data/configuracion.txt**.
+2. Se abre el archivo utilizando **fstream** en modo lectura.
+3. Se verifica si el archivo fue abierto correctamente.
+4. Se recorre el archivo línea por línea utilizando **getline**.
+5. Para cada línea:
+   - Se separan los datos mediante la función **separarLineaConfig()**.
+   - Se cargan los valores correspondientes mediante **cargarDatosConfig()**.
+6. Una vez finalizada la lectura, el archivo es cerrado.
+7. Finalmente la función retorna **1** si la lectura fue exitosa, o **0** en caso de que no se haya podido abrir el archivo.
+
+Esta función permite inicializar los parámetros de funcionamiento del sistema antes de realizar el análisis de las mediciones médicas.
 
 ## Paciente.h
 
