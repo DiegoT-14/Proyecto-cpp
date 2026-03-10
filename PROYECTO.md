@@ -95,8 +95,179 @@ Los archivos .h son los siguientes:
 ## Configuración.h
 Yo
 
-## Pacientes.h
-Yo
+## Paciente.h
+
+Este archivo define la estructura **Paciente**, la cual se utiliza para almacenar la información correspondiente a cada paciente registrada dentro del sistema.  
+Los datos de los pacientes son leídos desde el archivo **pacientes.csv**, procesados y posteriormente almacenados en memoria mediante estructuras dinámicas.
+
+Dentro de esta estructura se declaran múltiples atributos, los cuales representan la información básica de cada paciente registrada en el archivo.
+
+Los atributos definidos son los siguientes:
+
+- char* id_paciente  
+  Almacena el identificador único del paciente dentro del sistema.
+
+- char* tipo_doc  
+  Indica el tipo de documento del paciente (por ejemplo CC, TI, CE, entre otros).
+
+- char* documento  
+  Contiene el número de documento correspondiente al paciente.
+
+- char* nombre  
+  Almacena el nombre del paciente.
+
+- char* apellido  
+  Almacena el apellido del paciente.
+
+- char* fecha_nacimiento  
+  Guarda la fecha de nacimiento del paciente.
+
+- char* telefono  
+  Contiene el número de teléfono de contacto del paciente.
+
+- char* email  
+  Almacena el correo electrónico del paciente.
+
+- char* tipo_sangre  
+  Indica el tipo de sangre del paciente.
+
+- char* entidad_salud  
+  Representa la entidad de salud o EPS a la cual se encuentra afiliado el paciente.
+
+- char* medicina_Prepagada  
+  Indica si el paciente posee servicio de medicina prepagada.
+
+Todos estos atributos se manejan mediante **punteros a char**, lo cual permite almacenar dinámicamente la información leída desde el archivo de texto.
+
+Posteriormente se define un **constructor para la estructura**, cuyo objetivo es inicializar todos los punteros en **nullptr**.  
+Esto se realiza con el fin de evitar que las variables contengan referencias a memoria no inicializada al momento de crear nuevas estructuras Paciente.
+
+```cpp
+Paciente() {
+    id_paciente = nullptr;
+    tipo_doc = nullptr;
+    documento = nullptr;
+    nombre = nullptr;
+    apellido = nullptr;
+    fecha_nacimiento = nullptr;
+    telefono = nullptr;
+    email = nullptr;
+    tipo_sangre = nullptr;
+    entidad_salud = nullptr;
+    medicina_Prepagada = nullptr;
+}
+```
+
+Este constructor garantiza que cada estructura Paciente comience en un estado seguro antes de que se carguen los datos provenientes del archivo.
+
+---
+
+### Separación de datos del archivo
+
+Dentro de la estructura también se define la función:
+
+```cpp
+void separarLineaPaciente(std::string linea, std::string tokens[11])
+```
+
+Esta función tiene como objetivo **procesar una línea completa del archivo pacientes.csv y separar sus diferentes campos de información**.
+
+Para lograr esto se utiliza la clase **stringstream**, la cual permite tratar la cadena de texto como un flujo de datos y dividirla utilizando el carácter **';'** como delimitador.
+
+El proceso que realiza esta función es el siguiente:
+
+1. Recibe una línea completa del archivo CSV.
+2. Convierte la línea en un flujo de datos utilizando **stringstream**.
+3. Separa cada uno de los campos utilizando **getline** con el delimitador ';'.
+4. Almacena cada campo en el arreglo **tokens**, el cual contiene los 11 datos correspondientes al paciente.
+5. En caso de que algún campo tenga un espacio inicial, este es eliminado para mantener los datos limpios.
+
+---
+
+### Carga de datos en la estructura
+
+Posteriormente se define la función:
+
+```cpp
+void cargarDatosPaciente(std::string datos[11])
+```
+
+Esta función se encarga de **copiar la información previamente separada en los atributos de la estructura Paciente utilizando memoria dinámica**.
+
+Para cada uno de los campos se realiza el siguiente procedimiento:
+
+1. Se obtiene el tamaño de la cadena de texto utilizando **length()**.
+2. Se reserva memoria dinámica utilizando **new**.
+3. Se copia el contenido de la cadena utilizando **strncpy**.
+4. Se agrega manualmente el carácter de terminación **'\0'** para garantizar que la cadena sea válida en formato C.
+
+Este procedimiento se realiza para cada uno de los atributos de la estructura, permitiendo almacenar la información del paciente de manera independiente en memoria.
+
+---
+
+### Conteo de pacientes en el archivo
+
+Fuera de la estructura se define la función:
+
+```cpp
+int contarPacientes()
+```
+
+Esta función tiene como objetivo **determinar cuántos pacientes existen dentro del archivo pacientes.csv**.
+
+Para ello se realiza el siguiente proceso:
+
+1. Se abre el archivo utilizando **fstream** en modo lectura.
+2. Se verifica que el archivo haya sido abierto correctamente.
+3. Se recorre el archivo línea por línea utilizando **getline**.
+4. Por cada línea encontrada se incrementa un contador.
+5. Finalmente se retorna la cantidad total de pacientes encontrados.
+
+Esta información es utilizada posteriormente para determinar el tamaño del arreglo dinámico que almacenará las estructuras Paciente.
+
+---
+
+### Lectura de pacientes desde el archivo
+
+A continuación se define la función:
+
+```cpp
+Paciente* leer_datos_paciente(int &cantidad)
+```
+
+Esta función es la encargada de **leer el archivo pacientes.csv y cargar la información en un arreglo dinámico de estructuras Paciente**.
+
+El proceso que realiza esta función es el siguiente:
+
+1. Llama a la función **contarPacientes()** para determinar cuántos registros existen en el archivo.
+2. Reserva memoria dinámica para un arreglo de estructuras **Paciente** utilizando **new**.
+3. Abre nuevamente el archivo en modo lectura.
+4. Lee cada línea del archivo utilizando **getline**.
+5. Para cada línea:
+   - Se separan los datos utilizando **separarLineaPaciente()**.
+   - Se cargan los datos en la estructura correspondiente utilizando **cargarDatosPaciente()**.
+6. Una vez finalizada la lectura, se asigna la cantidad total de pacientes al parámetro **cantidad**.
+7. Finalmente se retorna el arreglo dinámico de pacientes cargados en memoria.
+
+---
+
+### Liberación de memoria dinámica
+
+Finalmente se define la función:
+
+```cpp
+void liberarPacientes(Paciente* pacientes, int cantidad)
+```
+
+Esta función se encarga de **liberar toda la memoria dinámica utilizada para almacenar la información de los pacientes**.
+
+El procedimiento que realiza es el siguiente:
+
+1. Recorre el arreglo de pacientes utilizando un ciclo.
+2. Para cada paciente libera la memoria reservada para cada uno de sus atributos mediante **delete[]**.
+3. Una vez liberados todos los atributos, se libera el arreglo completo de pacientes utilizando **delete[]**.
+
+Esta función es fundamental para evitar **fugas de memoria (memory leaks)** dentro del programa.
 
 ## ArchivoPacientes.h
 
