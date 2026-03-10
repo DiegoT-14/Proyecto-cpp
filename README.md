@@ -225,7 +225,7 @@ Al ejecutarse, el programa muestra el siguiente menú:
 3. Generar reporte de anomalias
 4. Calcular estadisticas
 5. Exportar datos procesados
-6. Salir
+0. Salir
 
 Cada opción realiza una operación específica dentro del sistema.
 
