@@ -421,7 +421,55 @@ Funcion la cual se declaro en Paciente.h , esta función es la encargada de:
 El arreglo dinámico resultante es asignado al puntero archivo.pacientes, mientras que la variable archivo.cantidad almacena el número total de pacientes cargados.
 
 ## Lectura.h
-TORO
+
+Este archivo define la estructura **Lectura**, la cual se utiliza para representar una lectura individual proveniente de un sensor médico.
+
+Cada medición realizada por una máquina de monitoreo puede contener múltiples lecturas correspondientes a diferentes variables fisiológicas, como temperatura corporal, presión arterial, nivel de oxígeno en sangre o señales de electrocardiograma (ECG).
+
+La estructura **Lectura** permite almacenar estos valores de manera organizada para que posteriormente puedan ser analizados por el sistema y comparados con los rangos definidos en el archivo de configuración.
+
+---
+
+### Estructura Lectura
+
+La estructura **Lectura** representa una única lectura obtenida por un sensor médico.
+
+Dentro de esta estructura se definen los siguientes atributos:
+
+- char tipo  
+  Indica el tipo de sensor que generó la lectura. Este carácter permite identificar qué variable fisiológica está siendo registrada.
+
+  Los valores posibles son:
+
+  - **T** → Temperatura corporal  
+  - **O** → Nivel de oxígeno en sangre  
+  - **P** → Presión arterial  
+  - **E** → Señal de electrocardiograma (ECG)
+
+- double valor  
+  Almacena el valor numérico de la lectura para los sensores que registran **una sola medición**, como temperatura, oxígeno o ECG.
+
+- double sistolica  
+  Contiene el valor de **presión sistólica**, el cual corresponde al valor máximo de presión arterial registrado durante el latido del corazón.
+
+- double diastolica  
+  Contiene el valor de **presión diastólica**, que corresponde al valor mínimo de presión arterial entre latidos.
+
+---
+
+### Uso dentro del sistema
+
+Las estructuras **Lectura** son utilizadas dentro de la estructura **Medicion**, donde se almacenan en un **arreglo dinámico de lecturas**.
+
+Cada medición puede contener múltiples lecturas provenientes de diferentes sensores.  
+Posteriormente, estas lecturas son analizadas para determinar si alguno de los valores se encuentra **fuera de los rangos permitidos definidos en el archivo de configuración**.
+
+Dependiendo del tipo de sensor, el sistema utilizará diferentes atributos de la estructura:
+
+- Para **temperatura, oxígeno o ECG**, se utiliza el atributo **valor**.
+- Para **presión arterial**, se utilizan los atributos **sistolica** y **diastolica**.
+
+Esta estructura constituye la **unidad básica de información médica dentro del sistema de monitoreo**, ya que representa cada valor registrado por los sensores.
 
 ## Medicion.h
 
