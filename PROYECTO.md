@@ -603,7 +603,7 @@ Estas máquinas almacenan múltiples mediciones, y cada medición a su vez conti
 
 La información de las salas, máquinas, mediciones y lecturas es cargada desde un **archivo binario de simulación**, el cual representa los datos generados por el sistema de monitoreo médico.
 
-Para el correcto funcionamiento de esta estructura, el archivo utiliza las definiciones presentes en **Maquina.h**, **Paciente.h** y **ArchivoPacientes.h**.
+Para el correcto funcionamiento de esta estructura, el archivo utiliza las definiciones presentes en **Maquina.h**, **Medicion.h**, **Lectura.h**, **Paciente.h** y **ArchivoPacientes.h**.
 
 ---
 
@@ -654,7 +654,7 @@ El procedimiento realizado es el siguiente:
 4. Libera el arreglo dinámico de máquinas utilizando **delete[]**.
 5. Finalmente restablece el puntero a **nullptr** y el número de máquinas a **0**.
 
-Este proceso permite evitar **fugas de memoria (memory leaks)** dentro del sistema.
+Este proceso permite evitar **fugas de memoria** dentro del sistema.
 
 ---
 
@@ -668,7 +668,7 @@ int leer_binario(Sala salas[], int max)
 
 Esta función es la encargada de **leer el archivo binario que contiene las mediciones simuladas de los pacientes y cargar dicha información en el arreglo de salas**.
 
-El archivo utilizado es **patient_readings_simulation_small.bsf**, el cual contiene la estructura completa de datos del sistema de monitoreo.
+El archivo utilizado es **patient_readings_simulation.bsf**, el cual contiene la estructura completa de datos del sistema de monitoreo.
 
 El procedimiento que realiza esta función es el siguiente:
 
