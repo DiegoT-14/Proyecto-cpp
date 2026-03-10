@@ -1,5 +1,5 @@
 # Proyecto CPP
-Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
+**Presentado por:** Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
 
 ## Descripción del proyecto
 
