@@ -1,6 +1,9 @@
-# Proyecto CPP
+# Sistema de Monitoreo de Señales Médicas
 
-**Presentado por:** Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
+## Autores
+
+* Diego Alejandro Torres Cely
+* Juan Carlos Muñoz Muñoz
 
 ---
 
