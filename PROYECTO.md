@@ -639,8 +639,120 @@ El procedimiento realizado es el siguiente:
 
 Este ordenamiento permite analizar las mediciones médicas **siguiendo la secuencia temporal en la que fueron registradas**.
 
-## Máquina.h
-TORO
+## Maquina.h
+
+Este archivo define la estructura **Maquina**, la cual representa un dispositivo de monitoreo médico dentro de una sala hospitalaria.
+
+Cada máquina es responsable de registrar múltiples **mediciones médicas** realizadas a diferentes pacientes.  
+Cada medición contiene a su vez varias **lecturas fisiológicas**, las cuales son analizadas posteriormente para detectar posibles anomalías en los signos vitales.
+
+Las estructuras definidas en este archivo permiten organizar y gestionar las mediciones registradas por cada máquina dentro del sistema.
+
+---
+
+### Estructura Maquina
+
+La estructura **Maquina** se utiliza para almacenar la información correspondiente a una máquina de monitoreo médico y las mediciones que ha registrado.
+
+Dentro de esta estructura se declaran los siguientes atributos:
+
+- char id_maquina  
+  Identificador único de la máquina dentro de la sala de monitoreo.
+
+- unsigned int num_mediciones  
+  Indica la cantidad total de mediciones registradas por la máquina.
+
+- Medicion* mediciones  
+  Es un arreglo dinámico de estructuras **Medicion**, el cual almacena todas las mediciones registradas por la máquina.
+
+Cada medición contiene información del paciente, la fecha en que se realizó el registro y las lecturas fisiológicas capturadas por los sensores.
+
+---
+
+### Constructor de la estructura
+
+Dentro de la estructura se define un constructor cuyo objetivo es **inicializar el arreglo de mediciones en nullptr y el contador en cero**, evitando referencias a memoria no inicializada.
+
+```cpp
+Maquina() {
+    mediciones = nullptr;
+    num_mediciones = 0;
+}
+```
+
+Este constructor garantiza que cada estructura **Maquina** comience en un estado seguro antes de que se carguen los datos provenientes del archivo binario.
+
+---
+
+### Liberación de memoria dinámica
+
+Posteriormente se define la función:
+
+```cpp
+void liberar()
+```
+
+Esta función se encarga de **liberar la memoria dinámica utilizada para almacenar las mediciones registradas por la máquina**.
+
+El procedimiento realizado es el siguiente:
+
+1. Verifica si el arreglo de mediciones contiene memoria reservada.
+2. Recorre cada medición almacenada en la máquina.
+3. Para cada medición se llama a su función **liberar()**, la cual libera las lecturas asociadas.
+4. Finalmente se libera el arreglo dinámico de mediciones utilizando **delete[]**.
+
+Este proceso evita **fugas de memoria (memory leaks)** y garantiza que el programa libere correctamente los recursos utilizados.
+
+---
+
+### Generación de reportes de anomalías
+
+A continuación se define la función:
+
+```cpp
+void generarReporteMaquina(Maquina &maq, Configuracion cfg)
+```
+
+Esta función se encarga de **analizar todas las lecturas registradas por una máquina y generar un reporte de las anomalías detectadas**.
+
+El reporte generado es almacenado en el archivo **reporte_anomalias.txt**.
+
+El procedimiento que realiza esta función es el siguiente:
+
+1. Se abre el archivo de reporte en modo escritura utilizando **fstream**.
+2. Se verifica que el archivo haya sido abierto correctamente.
+3. Se recorren todas las mediciones registradas por la máquina.
+4. Para cada medición se recorren todas las lecturas almacenadas.
+5. Cada lectura es evaluada mediante la función **detectarAnomalia()**, la cual compara el valor registrado con los rangos definidos en la configuración del sistema.
+
+Si se detecta una anomalía, se escribe en el archivo la siguiente información:
+
+- Identificador de la máquina.
+- Identificador del paciente.
+- Fecha y hora de la medición.
+- Tipo de sensor que generó la anomalía.
+- Valor registrado por el sensor.
+
+En el caso de **presión arterial**, la función también identifica si la anomalía corresponde a:
+
+- **Presión sistólica**, o
+- **Presión diastólica**.
+
+De esta manera el archivo de reporte permite identificar fácilmente qué mediciones presentan valores fuera de los rangos normales definidos por el sistema.
+
+---
+
+### Uso dentro del sistema
+
+Las estructuras **Maquina** son utilizadas dentro de la estructura **Sala**, donde se almacenan en un arreglo dinámico que representa todas las máquinas presentes en una sala de monitoreo.
+
+Cada máquina gestiona sus propias mediciones, las cuales posteriormente son utilizadas para:
+
+- Detectar anomalías en los signos vitales.
+- Generar reportes médicos.
+- Analizar el comportamiento de las señales fisiológicas de los pacientes.
+
+De esta manera, la estructura **Maquina** funciona como el componente encargado de **gestionar y analizar las mediciones médicas registradas por cada dispositivo de monitoreo** dentro del sistema.
 
 ## Sala.h
 
