@@ -73,9 +73,9 @@ Archivo binario que almacena los pacientes que presentan anomalías en sus lectu
 
 ---
 
-# Compilación y ejecución del programa (Visual Studio)
+# Compilación y ejecución del programa
 
-El proyecto fue desarrollado utilizando **Visual Studio / Visual Studio Code** y se entrega como un archivo **.zip** descargado desde GitHub.
+El proyecto fue desarrollado utilizando **Visual Studio Code** y se entrega como un archivo **.zip** descargado desde GitHub.
 
 ## 1. Descomprimir el proyecto
 
