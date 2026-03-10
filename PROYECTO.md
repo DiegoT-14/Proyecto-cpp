@@ -104,38 +104,17 @@ Dentro de esta estructura se declaran múltiples atributos, los cuales represent
 
 Los atributos definidos son los siguientes:
 
-- char* id_paciente  
-  Almacena el identificador único del paciente dentro del sistema.
-
+- char* id_paciente
 - char* tipo_doc  
-  Indica el tipo de documento del paciente (por ejemplo CC, TI, CE, entre otros).
-
 - char* documento  
-  Contiene el número de documento correspondiente al paciente.
-
 - char* nombre  
-  Almacena el nombre del paciente.
-
 - char* apellido  
-  Almacena el apellido del paciente.
-
 - char* fecha_nacimiento  
-  Guarda la fecha de nacimiento del paciente.
-
 - char* telefono  
-  Contiene el número de teléfono de contacto del paciente.
-
 - char* email  
-  Almacena el correo electrónico del paciente.
-
 - char* tipo_sangre  
-  Indica el tipo de sangre del paciente.
-
 - char* entidad_salud  
-  Representa la entidad de salud o EPS a la cual se encuentra afiliado el paciente.
-
 - char* medicina_Prepagada  
-  Indica si el paciente posee servicio de medicina prepagada.
 
 Todos estos atributos se manejan mediante **punteros a char**, lo cual permite almacenar dinámicamente la información leída desde el archivo de texto.
 
