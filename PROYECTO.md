@@ -131,7 +131,7 @@ Los atributos definidos dentro de esta estructura son los siguientes:
 - Rango presion_diastolica  
 - Rango oxigeno  
 - Rango ecg
-- 
+  
 Cada uno de estos atributos será cargado posteriormente con los valores obtenidos desde el archivo de configuración.
 
 ---
