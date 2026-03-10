@@ -90,7 +90,7 @@ Proyecto
 │
 ├── CPP-Project-main
 │   │
-│   ├── .github
+│   │
 │   │
 │   ├── data
 │   │   ├── configuracion.txt
