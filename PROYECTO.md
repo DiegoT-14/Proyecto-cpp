@@ -441,17 +441,10 @@ La estructura **Medicion** se utiliza para almacenar toda la información relaci
 Dentro de esta estructura se declaran los siguientes atributos:
 
 - char* id_paciente  
-  Almacena el identificador del paciente al cual pertenece la medición.
-
 - char* fecha_y_hora  
-  Contiene la fecha y hora exacta en la que se realizó la medición.
-
 - unsigned int numlecturas  
-  Representa la cantidad de lecturas médicas registradas dentro de la medición.
-
-- Lectura* lecturas  
-  Es un arreglo dinámico de estructuras **Lectura**, el cual almacena cada una de las lecturas fisiológicas obtenidas durante la medición.
-
+- Lectura* lecturas
+  
 Este arreglo permite almacenar múltiples valores fisiológicos asociados a un mismo momento de registro.
 
 ---
@@ -491,7 +484,7 @@ El procedimiento realizado es el siguiente:
 4. Libera el arreglo dinámico de **lecturas** si este existe.
 5. Finalmente restablece los punteros a **nullptr** y el contador de lecturas a **0**.
 
-Este procedimiento permite evitar **fugas de memoria (memory leaks)** dentro del programa.
+Este procedimiento permite evitar **fugas de memoria** dentro del programa.
 
 ---
 
