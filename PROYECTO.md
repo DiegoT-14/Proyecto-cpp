@@ -246,7 +246,7 @@ El procedimiento que realiza es el siguiente:
 2. Para cada paciente libera la memoria reservada para cada uno de sus atributos mediante **delete[]**.
 3. Una vez liberados todos los atributos, se libera el arreglo completo de pacientes utilizando **delete[]**.
 
-Esta función es fundamental para evitar **fugas de memoria (memory leaks)** dentro del programa.
+Esta función es fundamental para evitar **fugas de memoria** dentro del programa.
 
 ## ArchivoPacientes.h
 
