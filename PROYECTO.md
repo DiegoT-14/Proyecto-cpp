@@ -1,7 +1,9 @@
 # Proyecto CPP
----
+
 **Presentado por:** Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
+
 ---
+
 ## Descripción del proyecto
 
 Este proyecto implementa un sistema de análisis de mediciones médicas simuladas.
@@ -95,7 +97,9 @@ Esta librería proporciona funciones matemáticas utilizadas en el programa. En 
 ```
 
 Esta librería fue implementada para hacer uso de la función atof(), la cual permite convertir una cadena de caracteres (char*) en un valor numérico de tipo double. Esta conversión fue utilizada al momento de leer los valores mínimo y máximo desde el archivo de configuración, permitiendo transformar los datos almacenados como texto en valores numéricos que pueden ser utilizados en las comparaciones del sistema.
+
 ---
+
 ## Archivos creados
 
 En primera instancia, se crearon un total de 7 archivos .h, dentro de los cuales se almacenan todas las estructuras y funciones correspondientes para que el programa final funcione.
