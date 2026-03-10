@@ -1,6 +1,21 @@
 # Proyecto-cpp
 ## Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
 
+## Descripción del proyecto
+
+Este proyecto implementa un sistema de análisis de mediciones médicas simuladas en un entorno hospitalario.
+
+El sistema permite:
+
+- Leer información de pacientes desde un archivo CSV.
+- Cargar mediciones médicas desde un archivo binario.
+- Analizar las lecturas fisiológicas registradas por diferentes sensores.
+- Detectar anomalías en variables como temperatura, presión arterial, oxígeno y ECG.
+- Generar reportes de anomalías detectadas.
+- Exportar pacientes con anomalías en señales ECG.
+
+La arquitectura del sistema se basa en múltiples estructuras interrelacionadas que representan pacientes, lecturas médicas, mediciones, máquinas de monitoreo y salas hospitalarias.
+
 ## Librerias implementadas
 
 Una parte fundamental del programa recae en las librerías que son usadas para llevar a cabo el correcto funcionamiento del sistema. A continuación se muestra cada una de estas junto con su respectivo aporte al desarrollo del código.
@@ -372,7 +387,7 @@ Esta función es fundamental para evitar **fugas de memoria** dentro del program
 
 ## ArchivoPacientes.h
 
-Este archivo define la estructura ArchivoPacientes, la cual se utiliza para gestionar la información de todos los pacientes cargados desde el archivo pacientes.csv, asi como la cantidad de estos.
+Este archivo define la estructura ArchivoPacientes, la cual se utiliza para gestionar la información de todos los pacientes cargados desde el archivo pacientes.csv, así como la cantidad de estos.
 
 Dentro de esta estructura se declaran dos atributos principales:
 
@@ -383,7 +398,7 @@ Dentro de esta estructura se declaran dos atributos principales:
 - int cantidad  
   Esta variable almacena la cantidad total de pacientes cargados en memoria.
 
-Posteriormente se define un constructor para la estructura, cuyo objetivo es inicializar correctamente los atributos antes de que la estructura sea utilizada. Este tipo de constructores no se vieron en el curso sin embargo, fue diseñana con ayuda de ChatGPT con el fin de evitar que las variables guarden "Basura" al momento de crearlas como dinamicas.
+Posteriormente se define un constructor para la estructura, cuyo objetivo es inicializar correctamente los atributos antes de que la estructura sea utilizada. Este tipo de constructores no se vieron en el curso sin embargo, fue diseñada con ayuda de ChatGPT con el fin de evitar que las variables guarden "Basura" al momento de crearlas como dinamicas.
 
 ### Prompt:
 Cuando creo un arreglo dinamico dentro de un struct es necesario inicializar esas variables para que no guarden basura, o el programa no les asigna nada al momento de ser creados?
