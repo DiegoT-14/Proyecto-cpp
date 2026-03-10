@@ -92,13 +92,6 @@ Los archivos .h son los siguientes:
 - Medicion.h
 - Maquina.h
 - Sala.h
-cpp
-#include <iostream>
-
-int main() {
-    std::cout << "Hola mundo";
-}
-
 
 ## Configuración.h
 Yo
