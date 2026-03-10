@@ -127,20 +127,11 @@ Para cada variable se utiliza un atributo de tipo **Rango**, lo cual permite alm
 Los atributos definidos dentro de esta estructura son los siguientes:
 
 - Rango temperatura  
-  Almacena los valores mínimo y máximo permitidos para la temperatura corporal.
-
 - Rango presion_sistolica  
-  Representa los límites permitidos para la presión arterial sistólica.
-
 - Rango presion_diastolica  
-  Representa los límites permitidos para la presión arterial diastólica.
-
 - Rango oxigeno  
-  Almacena el rango permitido para el nivel de saturación de oxígeno en sangre.
-
-- Rango ecg  
-  Contiene los valores mínimo y máximo permitidos para las señales provenientes del electrocardiograma.
-
+- Rango ecg
+- 
 Cada uno de estos atributos será cargado posteriormente con los valores obtenidos desde el archivo de configuración.
 
 ---
