@@ -106,19 +106,7 @@ Dentro de esta estructura se declaran dos atributos principales:
 
 - Paciente* pacientes  
   El cual es un arreglo dinámico de estructuras Paciente, el cual almacena la información de todos los pacientes leídos desde el archivo.  
-  La estructura Paciente es definida en Paciente.h y contiene los siguientes datos:
-
-  - id del paciente
-  - tipo de documento
-  - número de documento
-  - nombre
-  - apellido
-  - fecha de nacimiento
-  - teléfono
-  - correo electrónico
-  - tipo de sangre
-  - entidad de salud
-  - medicina prepagada
+  La estructura Paciente es definida en Paciente.h.
 
 - int cantidad  
   Esta variable almacena la cantidad total de pacientes cargados en memoria.
