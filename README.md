@@ -337,13 +337,3 @@ El programa incluye validaciones para detectar:
 Cuando se detecta un error, el sistema detiene la lectura y muestra un mensaje informativo en consola.
 
 ---
-
-# Observaciones
-
-Este proyecto fue desarrollado con fines académicos para practicar:
-
-* manejo de **archivos binarios**
-* manejo de **archivos CSV**
-* uso de **memoria dinámica**
-* organización de datos mediante **estructuras en C++**
-* detección de anomalías en datos simulados de sensores médicos
