@@ -56,7 +56,7 @@ Contiene los rangos mínimos y máximos permitidos para cada tipo de sensor méd
 **pacientes.csv**
 Contiene la información básica de los pacientes registrados en el sistema.
 
-**patient_readings_simulation_small.bsf**
+**patient_readings_simulation.bsf**
 Archivo binario que contiene las mediciones médicas simuladas generadas por las máquinas de monitoreo.
 
 ---
