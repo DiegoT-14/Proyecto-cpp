@@ -1,6 +1,7 @@
 # Proyecto CPP
+---
 **Presentado por:** Diego Alejandro Torres Cely, Juan Carlos Muñoz Muñoz
-
+---
 ## Descripción del proyecto
 
 Este proyecto implementa un sistema de análisis de mediciones médicas simuladas.
@@ -15,6 +16,8 @@ El sistema permite:
 - Exportar pacientes con anomalías en señales ECG.
 
 La arquitectura del sistema se basa en múltiples estructuras interrelacionadas que representan pacientes, lecturas médicas, mediciones, máquinas de monitoreo y salas hospitalarias.
+
+---
 
 ## Librerias implementadas
 
@@ -92,7 +95,7 @@ Esta librería proporciona funciones matemáticas utilizadas en el programa. En 
 ```
 
 Esta librería fue implementada para hacer uso de la función atof(), la cual permite convertir una cadena de caracteres (char*) en un valor numérico de tipo double. Esta conversión fue utilizada al momento de leer los valores mínimo y máximo desde el archivo de configuración, permitiendo transformar los datos almacenados como texto en valores numéricos que pueden ser utilizados en las comparaciones del sistema.
-
+---
 ## Archivos creados
 
 En primera instancia, se crearon un total de 7 archivos .h, dentro de los cuales se almacenan todas las estructuras y funciones correspondientes para que el programa final funcione.
@@ -106,6 +109,8 @@ Los archivos .h son los siguientes:
 - Medicion.h
 - Maquina.h
 - Sala.h
+
+---
 
 ## Configuracion.h
 
@@ -231,6 +236,8 @@ El procedimiento que realiza esta función es el siguiente:
 7. Finalmente la función retorna **1** si la lectura fue exitosa, o **0** en caso de que no se haya podido abrir el archivo.
 
 Esta función permite inicializar los parámetros de funcionamiento del sistema antes de realizar el análisis de las mediciones médicas.
+
+---
 
 ## Paciente.h
 
@@ -385,6 +392,8 @@ El procedimiento que realiza es el siguiente:
 
 Esta función es fundamental para evitar **fugas de memoria** dentro del programa.
 
+---
+
 ## ArchivoPacientes.h
 
 Este archivo define la estructura ArchivoPacientes, la cual se utiliza para gestionar la información de todos los pacientes cargados desde el archivo pacientes.csv, así como la cantidad de estos.
@@ -434,6 +443,8 @@ Funcion la cual se declaro en Paciente.h , esta función es la encargada de:
 4. Cargar la información correspondiente en cada una de ellas con la funcion cargarDatosPaciente.
 
 El arreglo dinámico resultante es asignado al puntero archivo.pacientes, mientras que la variable archivo.cantidad almacena el número total de pacientes cargados.
+
+---
 
 ## Lectura.h
 
@@ -485,6 +496,8 @@ Dependiendo del tipo de sensor, el sistema utilizará diferentes atributos de la
 - Para **presión arterial**, se utilizan los atributos **sistolica** y **diastolica**.
 
 Esta estructura constituye la **unidad básica de información médica dentro del sistema de monitoreo**, ya que representa cada valor registrado por los sensores.
+
+---
 
 ## Medicion.h
 
@@ -654,6 +667,8 @@ El procedimiento realizado es el siguiente:
 
 Este ordenamiento permite analizar las mediciones médicas **siguiendo la secuencia temporal en la que fueron registradas**.
 
+---
+
 ## Maquina.h
 
 Este archivo define la estructura **Maquina**, la cual representa un dispositivo de monitoreo médico dentro de una sala hospitalaria.
@@ -763,6 +778,8 @@ Cada máquina gestiona sus propias mediciones, las cuales posteriormente son uti
 - Analizar el comportamiento de las señales fisiológicas de los pacientes.
 
 De esta manera, la estructura **Maquina** funciona como el componente encargado de **gestionar y analizar las mediciones médicas registradas por cada dispositivo de monitoreo** dentro del sistema.
+
+---
 
 ## Sala.h
 
