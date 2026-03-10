@@ -75,37 +75,145 @@ Archivo binario que almacena los pacientes que presentan anomalías en sus lectu
 
 # Compilación y ejecución del programa (Visual Studio)
 
-Este proyecto fue desarrollado y probado utilizando **Visual Studio**.
+El proyecto fue desarrollado utilizando **Visual Studio / Visual Studio Code** y se entrega como un archivo **.zip** descargado desde GitHub.
 
-## Abrir el proyecto
+## 1. Descomprimir el proyecto
 
-1. Abrir **Visual Studio**.
-2. Seleccionar **Open Folder** o abrir la solución del proyecto si existe.
-3. Verificar que el archivo **main.cpp** esté incluido en el proyecto.
+Descargar el archivo `.zip` del repositorio y **descomprimirlo** en cualquier carpeta del computador.
 
-## Compilar el programa
+Al descomprimirlo se obtendrá una estructura similar a la siguiente:
 
-Para compilar el programa:
+```
+Proyecto
+│
+├── .vscode
+│
+├── CPP-Project-main
+│   │
+│   ├── .github
+│   │
+│   ├── data
+│   │   ├── configuracion.txt
+│   │   ├── pacientes.csv
+│   │   └── generate binary file
+│   │        └── patient_readings_simulation.txt
+│   │
+│   ├── generate_binary_files.cpp
+│   ├── patient_readings_simulation.bsf
+│   └── main.cpp
+│
+└── libs
+    ├── Configuracion.h
+    ├── Paciente.h
+    ├── ArchivoPacientes.h
+    ├── Lectura.h
+    ├── Medicion.h
+    ├── Maquina.h
+    └── Sala.h
+```
 
-1. Ir al menú **Build**.
-2. Seleccionar **Build Solution**
-   o presionar:
+---
 
-CTRL + SHIFT + B
+# 2. Abrir el proyecto
 
-Si no existen errores de compilación, Visual Studio generará el ejecutable del programa.
+1. Abrir **Visual Studio Code**.
+2. Seleccionar la opción **Open Folder**.
+3. Elegir la carpeta raíz del proyecto que contiene:
 
-## Ejecutar el programa
+```
+CPP-Project-main
+libs
+.vscode
+```
 
-Para ejecutar el programa:
+Esto cargará todos los archivos fuente del proyecto.
 
-1. Presionar el botón **Local Windows Debugger**
-   o presionar:
+---
 
+# 3. Ejecutar el programa
+
+Una vez abierto el proyecto:
+
+1. Abrir el archivo:
+
+```
+CPP-Project-main/main.cpp
+```
+
+2. Ejecutar el programa utilizando:
+
+**Run / Start Debugging**
+
+o presionando:
+
+```
 CTRL + F5
+```
 
-Esto abrirá la consola donde se ejecutará el sistema.
+Esto abrirá una **consola** donde se mostrará el menú interactivo del sistema.
 
+---
+
+# 4. Ubicación de los archivos del proyecto
+
+## Código fuente principal
+
+El archivo principal del programa se encuentra en:
+
+```
+CPP-Project-main/main.cpp
+```
+
+Este archivo contiene:
+
+* el menú principal del sistema
+* la ejecución de las funcionalidades
+* la carga de archivos
+* el flujo general del programa
+
+---
+
+## Librerías del sistema
+
+Las estructuras y funciones principales del sistema se encuentran en la carpeta:
+
+```
+libs/
+```
+
+Allí se encuentran los siguientes archivos:
+
+* `Configuracion.h`
+* `Paciente.h`
+* `ArchivoPacientes.h`
+* `Lectura.h`
+* `Medicion.h`
+* `Maquina.h`
+* `Sala.h`
+
+Estos archivos definen toda la lógica del sistema de monitoreo.
+
+---
+
+## Archivos de datos
+
+Los archivos utilizados por el programa se encuentran en:
+
+```
+CPP-Project-main/data/
+```
+
+Entre ellos:
+
+* `configuracion.txt`
+  Contiene los rangos médicos permitidos.
+
+* `pacientes.csv`
+  Contiene la información de los pacientes.
+
+* `patient_readings_simulation.txt`
+  Contiene el formato del archivo binario que alimenta todas las estructuras de las máquinas, mediciones y lecturas.
+  
 ---
 
 # Funcionamiento del programa
