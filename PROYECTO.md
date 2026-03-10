@@ -595,4 +595,203 @@ Este ordenamiento permite analizar las mediciones médicas **siguiendo la secuen
 TORO
 
 ## Sala.h
-CHAT
+
+Este archivo define la estructura **Sala**, la cual se utiliza para representar una sala de monitoreo dentro del sistema médico.
+
+Cada sala contiene un conjunto de **máquinas de monitoreo**, las cuales registran mediciones médicas de diferentes pacientes.  
+Estas máquinas almacenan múltiples mediciones, y cada medición a su vez contiene diversas lecturas fisiológicas.
+
+La información de las salas, máquinas, mediciones y lecturas es cargada desde un **archivo binario de simulación**, el cual representa los datos generados por el sistema de monitoreo médico.
+
+Para el correcto funcionamiento de esta estructura, el archivo utiliza las definiciones presentes en **Maquina.h**, **Paciente.h** y **ArchivoPacientes.h**.
+
+---
+
+### Estructura Sala
+
+La estructura **Sala** se utiliza para almacenar la información de una sala de monitoreo y las máquinas que se encuentran dentro de ella.
+
+Dentro de esta estructura se definen los siguientes atributos:
+
+- char id_sala  
+- uint8_t num_maquinas  
+- Maquina* maquinas
+
+Este arreglo permite organizar todas las mediciones médicas generadas por los dispositivos de monitoreo.
+
+---
+
+### Constructor de la estructura
+
+Dentro de la estructura se define un constructor cuyo objetivo es **inicializar los punteros en nullptr y los contadores en cero**, evitando referencias a memoria no inicializada.
+
+```cpp
+Sala(){
+    maquinas = nullptr;
+    num_maquinas = 0;
+}
+```
+
+Este constructor garantiza que cada estructura **Sala** comience en un estado seguro antes de cargar la información proveniente del archivo binario.
+
+---
+
+### Liberación de memoria dinámica
+
+Posteriormente se define la función:
+
+```cpp
+void liberar()
+```
+
+Esta función se encarga de **liberar la memoria dinámica utilizada por las máquinas almacenadas dentro de la sala**.
+
+El procedimiento realizado es el siguiente:
+
+1. Verifica si el arreglo de máquinas contiene memoria reservada.
+2. Recorre cada máquina de la sala.
+3. Llama a la función **liberar()** de cada máquina para liberar sus mediciones.
+4. Libera el arreglo dinámico de máquinas utilizando **delete[]**.
+5. Finalmente restablece el puntero a **nullptr** y el número de máquinas a **0**.
+
+Este proceso permite evitar **fugas de memoria (memory leaks)** dentro del sistema.
+
+---
+
+### Lectura del archivo binario de mediciones
+
+A continuación se define la función:
+
+```cpp
+int leer_binario(Sala salas[], int max)
+```
+
+Esta función es la encargada de **leer el archivo binario que contiene las mediciones simuladas de los pacientes y cargar dicha información en el arreglo de salas**.
+
+El archivo utilizado es **patient_readings_simulation_small.bsf**, el cual contiene la estructura completa de datos del sistema de monitoreo.
+
+El procedimiento que realiza esta función es el siguiente:
+
+1. Abre el archivo binario en modo lectura utilizando **fstream** con la bandera **ios::binary**.
+2. Verifica que el archivo haya sido abierto correctamente.
+3. Lee el **identificador de la sala**.
+4. Lee el **número de máquinas presentes en la sala**.
+5. Se valida que el número de máquinas sea correcto para evitar datos corruptos.
+6. Se crea dinámicamente el arreglo de **Maquina** correspondiente.
+7. Para cada máquina se realiza el siguiente proceso:
+   - Se lee el identificador de la máquina.
+   - Se lee la cantidad de mediciones registradas.
+   - Se valida que el número de mediciones sea válido.
+8. Para cada medición se realizan las siguientes operaciones:
+   - Se reserva memoria para el **ID del paciente**.
+   - Se reserva memoria para la **fecha y hora de la medición**.
+   - Se lee el número de lecturas registradas.
+   - Se crea el arreglo dinámico de **Lectura**.
+9. Finalmente se leen todas las lecturas registradas por los sensores.
+
+Dependiendo del tipo de sensor, se almacenan diferentes valores:
+
+- Para **presión arterial (P)** se almacenan los valores sistólico y diastólico.
+- Para **temperatura, oxígeno o ECG** se almacena un único valor numérico.
+
+La función retorna el número total de salas cargadas correctamente desde el archivo.
+
+---
+
+### Detección de anomalías en señales ECG
+
+Posteriormente se define la función:
+
+```cpp
+bool detectar_anomalia_ecg(Sala salas[], int num_salas, char* paciente_buscado, Configuracion cfg)
+```
+
+Esta función permite **analizar las lecturas ECG de un paciente específico y determinar si existe una anomalía en dichas mediciones**.
+
+El proceso realizado es el siguiente:
+
+1. Se recorren todas las salas cargadas en memoria.
+2. Dentro de cada sala se recorren todas las máquinas disponibles.
+3. Se analizan todas las mediciones registradas por cada máquina.
+4. Se verifica si la medición corresponde al paciente buscado.
+5. Si la lectura es de tipo **ECG (E)** se registra su valor.
+
+Durante el recorrido se identifican:
+
+- El valor mínimo registrado en las lecturas ECG.
+- El valor máximo registrado en las lecturas ECG.
+
+Posteriormente se calcula:
+
+- La suma del valor absoluto del mínimo y el máximo encontrados.
+- La suma de los valores absolutos de los límites permitidos definidos en la configuración.
+
+Si la suma de las mediciones supera la suma de los límites configurados, se determina que el paciente presenta **una anomalía en sus lecturas ECG**.
+
+---
+
+### Estructura temporal para exportación de ECG
+
+Dentro de este archivo también se define la estructura:
+
+```cpp
+struct DatoECGExportar
+```
+
+Esta estructura se utiliza como **estructura temporal para almacenar las lecturas ECG de un paciente antes de ser exportadas a un archivo binario**.
+
+Sus atributos son:
+
+- char fecha_y_hora[24]  
+  Almacena la fecha y hora en la que se realizó la lectura ECG.
+
+- double valor  
+  Contiene el valor registrado por el sensor ECG.
+
+---
+
+### Exportación de pacientes con anomalías ECG
+
+A continuación se define la función:
+
+```cpp
+void exportar_pacientes_ecg_anomalos(...)
+```
+
+Esta función se encarga de **generar un archivo binario que contiene los pacientes que presentan anomalías en sus señales ECG**.
+
+El procedimiento realizado es el siguiente:
+
+1. Se crea un archivo binario llamado **pacientes_ecg_anomalos.bsf**.
+2. Se recorren todos los pacientes almacenados en la base de datos.
+3. Para cada paciente se ejecuta la función **detectar_anomalia_ecg()**.
+4. Si el paciente presenta anomalías:
+   - Se recopilan todas sus lecturas ECG.
+   - Se almacenan temporalmente en un arreglo de estructuras **DatoECGExportar**.
+5. Posteriormente se escriben en el archivo binario:
+   - El identificador del paciente.
+   - El número de lecturas ECG registradas.
+   - La fecha y hora de cada lectura.
+   - El valor correspondiente a cada medición.
+
+Finalmente se muestra un mensaje indicando la cantidad de pacientes exportados.
+
+---
+
+### Liberación de memoria de las salas
+
+Finalmente se define la función:
+
+```cpp
+void liberarSalas(Sala salas[], int total_salas)
+```
+
+Esta función se encarga de **liberar toda la memoria dinámica utilizada por las salas cargadas en el sistema**.
+
+El procedimiento consiste en:
+
+1. Recorrer el arreglo de salas.
+2. Para cada sala llamar a su función **liberar()**.
+3. De esta manera se liberan todas las máquinas, mediciones y lecturas asociadas.
+
+Este proceso asegura que el programa finalice sin dejar memoria reservada innecesariamente.
