@@ -423,8 +423,180 @@ El arreglo dinámico resultante es asignado al puntero archivo.pacientes, mientr
 ## Lectura.h
 TORO
 
-## Medición.h
-YO
+## Medicion.h
+
+Este archivo define la estructura **Medicion**, la cual se utiliza para almacenar la información correspondiente a una medición médica realizada a un paciente.
+
+Cada medición contiene un conjunto de **lecturas fisiológicas** tomadas en un momento específico, como temperatura, presión arterial, nivel de oxígeno o señales ECG.  
+Estas lecturas son posteriormente analizadas por el sistema para determinar si alguna de ellas se encuentra fuera de los rangos permitidos definidos en el archivo de configuración.
+
+Para poder realizar estas operaciones, este archivo utiliza las estructuras definidas en **Lectura.h** y **Configuracion.h**.
+
+---
+
+### Estructura Medicion
+
+La estructura **Medicion** se utiliza para almacenar toda la información relacionada con una medición médica realizada a un paciente.
+
+Dentro de esta estructura se declaran los siguientes atributos:
+
+- char* id_paciente  
+  Almacena el identificador del paciente al cual pertenece la medición.
+
+- char* fecha_y_hora  
+  Contiene la fecha y hora exacta en la que se realizó la medición.
+
+- unsigned int numlecturas  
+  Representa la cantidad de lecturas médicas registradas dentro de la medición.
+
+- Lectura* lecturas  
+  Es un arreglo dinámico de estructuras **Lectura**, el cual almacena cada una de las lecturas fisiológicas obtenidas durante la medición.
+
+Este arreglo permite almacenar múltiples valores fisiológicos asociados a un mismo momento de registro.
+
+---
+
+### Constructor de la estructura
+
+Dentro de la estructura se define un constructor cuyo objetivo es **inicializar los punteros en nullptr y los contadores en cero**, evitando referencias a memoria no inicializada.
+
+```cpp
+Medicion() {
+    id_paciente = nullptr;
+    fecha_y_hora = nullptr;
+    lecturas = nullptr;
+    numlecturas = 0;
+}
+```
+
+Este constructor garantiza que cada estructura **Medicion** comience en un estado seguro antes de cargar los datos provenientes del sistema de medición.
+
+---
+
+### Liberación de memoria dinámica
+
+Posteriormente se define la función:
+
+```cpp
+void liberar()
+```
+
+Esta función se encarga de **liberar la memoria dinámica utilizada por una medición**.
+
+El procedimiento realizado es el siguiente:
+
+1. Verifica si el puntero **id_paciente** contiene memoria reservada.
+2. En caso afirmativo, libera la memoria utilizando **delete[]**.
+3. Realiza el mismo procedimiento para el atributo **fecha_y_hora**.
+4. Libera el arreglo dinámico de **lecturas** si este existe.
+5. Finalmente restablece los punteros a **nullptr** y el contador de lecturas a **0**.
+
+Este procedimiento permite evitar **fugas de memoria (memory leaks)** dentro del programa.
+
+---
+
+### Detección de anomalías en presión sistólica
+
+A continuación se define la función:
+
+```cpp
+bool detectarAnomaliaSistolica(Lectura lec, Configuracion cfg)
+```
+
+Esta función determina si una **lectura de presión sistólica se encuentra fuera del rango permitido** definido en la configuración del sistema.
+
+El proceso realizado es el siguiente:
+
+1. Verifica si la lectura corresponde al tipo **P** (presión arterial).
+2. Compara el valor de presión sistólica con los límites mínimo y máximo definidos en la configuración.
+3. Si el valor se encuentra fuera del rango permitido, retorna **true**, indicando la presencia de una anomalía.
+
+---
+
+### Detección de anomalías en presión diastólica
+
+Posteriormente se define la función:
+
+```cpp
+bool detectarAnomaliaDiastolica(Lectura lec, Configuracion cfg)
+```
+
+Esta función realiza el mismo procedimiento que la anterior, pero aplicado a la **presión arterial diastólica**.
+
+El procedimiento consiste en:
+
+1. Verificar que la lectura sea del tipo **P**.
+2. Comparar el valor de presión diastólica con los límites permitidos.
+3. Retornar **true** si el valor se encuentra fuera del rango establecido.
+
+---
+
+### Detección general de anomalías
+
+La función principal de análisis se define como:
+
+```cpp
+bool detectarAnomalia(Lectura lec, Configuracion cfg)
+```
+
+Esta función permite **determinar si una lectura fisiológica se encuentra fuera de los rangos permitidos definidos en el archivo de configuración**.
+
+El proceso realizado es el siguiente:
+
+1. Si la lectura corresponde a un **ECG**, esta no se evalúa como anomalía y la función retorna **false**.
+2. Si la lectura es de **temperatura**, se compara con el rango definido para temperatura.
+3. Si la lectura corresponde al **nivel de oxígeno**, se compara con su rango permitido.
+4. Si la lectura corresponde a **presión arterial**, se utilizan las funciones:
+   - **detectarAnomaliaSistolica()**
+   - **detectarAnomaliaDiastolica()**
+
+Si cualquiera de estos valores se encuentra fuera de los límites permitidos, la función retorna **true**, indicando la presencia de una anomalía.
+
+---
+
+### Comparación de fechas de medición
+
+A continuación se define la función:
+
+```cpp
+bool compararFecha(char f1[], char f2[])
+```
+
+Esta función se utiliza para **comparar dos fechas almacenadas en formato texto**.
+
+El objetivo es determinar si la fecha **f1** es posterior a la fecha **f2**.
+
+El procedimiento consiste en comparar secuencialmente los componentes de la fecha:
+
+1. Primero se comparan los **años**.
+2. Si los años son iguales, se comparan los **meses**.
+3. Posteriormente se comparan los **días**.
+4. Finalmente se comparan las **horas**.
+
+Si en cualquiera de estas comparaciones se determina que **f1 es posterior a f2**, la función retorna **true**.
+
+---
+
+### Ordenamiento de mediciones por fecha
+
+Finalmente se define la función:
+
+```cpp
+void ordenarMedicionesPorFecha(Medicion mediciones[], int n)
+```
+
+Esta función se encarga de **ordenar un arreglo de mediciones según la fecha en la que fueron realizadas**.
+
+Para realizar este proceso se utiliza el algoritmo **Bubble Sort**, el cual compara elementos consecutivos del arreglo e intercambia sus posiciones cuando se encuentran en un orden incorrecto.
+
+El procedimiento realizado es el siguiente:
+
+1. Se recorre el arreglo de mediciones múltiples veces.
+2. En cada iteración se comparan dos mediciones consecutivas utilizando la función **compararFecha()**.
+3. Si una medición se encuentra posterior a la siguiente, ambas posiciones son intercambiadas.
+4. El proceso se repite hasta que todas las mediciones quedan ordenadas cronológicamente.
+
+Este ordenamiento permite analizar las mediciones médicas **siguiendo la secuencia temporal en la que fueron registradas**.
 
 ## Máquina.h
 TORO
