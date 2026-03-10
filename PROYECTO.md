@@ -3,7 +3,7 @@
 
 ## Descripción del proyecto
 
-Este proyecto implementa un sistema de análisis de mediciones médicas simuladas en un entorno hospitalario.
+Este proyecto implementa un sistema de análisis de mediciones médicas simuladas.
 
 El sistema permite:
 
