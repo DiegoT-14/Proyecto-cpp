@@ -450,10 +450,10 @@ Dentro de esta estructura se definen los siguientes atributos:
   Almacena el valor numérico de la lectura para los sensores que registran **una sola medición**, como temperatura, oxígeno o ECG.
 
 - double sistolica  
-  Contiene el valor de **presión sistólica**, el cual corresponde al valor máximo de presión arterial registrado durante el latido del corazón.
+  Contiene el valor de **presión sistólica**.
 
 - double diastolica  
-  Contiene el valor de **presión diastólica**, que corresponde al valor mínimo de presión arterial entre latidos.
+  Contiene el valor de **presión diastólica**.
 
 ---
 
