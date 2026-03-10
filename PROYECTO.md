@@ -657,13 +657,8 @@ La estructura **Maquina** se utiliza para almacenar la información correspondie
 Dentro de esta estructura se declaran los siguientes atributos:
 
 - char id_maquina  
-  Identificador único de la máquina dentro de la sala de monitoreo.
-
 - unsigned int num_mediciones  
-  Indica la cantidad total de mediciones registradas por la máquina.
-
 - Medicion* mediciones  
-  Es un arreglo dinámico de estructuras **Medicion**, el cual almacena todas las mediciones registradas por la máquina.
 
 Cada medición contiene información del paciente, la fecha en que se realizó el registro y las lecturas fisiológicas capturadas por los sensores.
 
@@ -701,7 +696,7 @@ El procedimiento realizado es el siguiente:
 3. Para cada medición se llama a su función **liberar()**, la cual libera las lecturas asociadas.
 4. Finalmente se libera el arreglo dinámico de mediciones utilizando **delete[]**.
 
-Este proceso evita **fugas de memoria (memory leaks)** y garantiza que el programa libere correctamente los recursos utilizados.
+Este proceso evita **fugas de memoria** y garantiza que el programa libere correctamente los recursos utilizados.
 
 ---
 
