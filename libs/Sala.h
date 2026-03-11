@@ -54,19 +54,22 @@ int leer_binario(Sala salas[], int max){
 
     int contador = 0;
 
-    while (contador < max && archivo.good()) {
+    while (contador < max) {
        
-        if (archivo.peek() == EOF) {
-            break;
-        }
-
         // leer ID de la sala
         archivo.read(&salas[contador].id_sala, sizeof(char));
+        if (archivo.fail()) {
+            break;
+        }
 
         unsigned int num_maquinas_temp;
 
         // leer número de máquinas
         archivo.read((char*)&num_maquinas_temp, sizeof(unsigned int));
+        if (archivo.fail()) {
+            break;
+        }
+
         salas[contador].num_maquinas = num_maquinas_temp;
         
         // validación de datos del archivo
@@ -83,7 +86,16 @@ int leer_binario(Sala salas[], int max){
             
             // leer ID de máquina y número de mediciones
             archivo.read(&salas[contador].maquinas[i].id_maquina, sizeof(char));
+            if (archivo.fail()) {
+                lectura_valida = false;
+                break;
+            }
+
             archivo.read((char*)&salas[contador].maquinas[i].num_mediciones, sizeof(unsigned int));
+            if (archivo.fail()) {
+                lectura_valida = false;
+                break;
+            }
 
             if (salas[contador].maquinas[i].num_mediciones == 0 || salas[contador].maquinas[i].num_mediciones > 1000000) {
                 std::cout << "Error: Numero de mediciones inválido (" << salas[contador].maquinas[i].num_mediciones << "). Archivo corrupto.\n";
@@ -103,14 +115,27 @@ int leer_binario(Sala salas[], int max){
                 // leer ID del paciente
                 char id_temp;
                 archivo.read(&id_temp, 1);
+                if (archivo.fail()) {
+                    lectura_valida = false;
+                    break;
+                }
+
                 salas[contador].maquinas[i].mediciones[j].id_paciente[0] = id_temp;
                 salas[contador].maquinas[i].mediciones[j].id_paciente[1] = '\0';
                 
                 // leer fecha y hora
                 archivo.read(salas[contador].maquinas[i].mediciones[j].fecha_y_hora, 24);
+                if (archivo.fail()) {
+                    lectura_valida = false;
+                    break;
+                }
                 
                 // leer número de lecturas
                 archivo.read((char*)&salas[contador].maquinas[i].mediciones[j].numlecturas, sizeof(unsigned int));
+                if (archivo.fail()) {
+                    lectura_valida = false;
+                    break;
+                }
 
                 // validación de número de lecturas
                 if (salas[contador].maquinas[i].mediciones[j].numlecturas == 0 || salas[contador].maquinas[i].mediciones[j].numlecturas > 1000000) {
@@ -126,15 +151,32 @@ int leer_binario(Sala salas[], int max){
                 
                     // leer tipo de sensor
                     archivo.read(&salas[contador].maquinas[i].mediciones[j].lecturas[k].tipo, sizeof(char));
+                    if (archivo.fail()) {
+                        lectura_valida = false;
+                        break;
+                    }
                     
                     if (salas[contador].maquinas[i].mediciones[j].lecturas[k].tipo == 'P') {
                         // presión arterial: sistólica y diastólica
                         archivo.read((char*)&salas[contador].maquinas[i].mediciones[j].lecturas[k].sistolica, sizeof(double));
+                        if (archivo.fail()) {
+                            lectura_valida = false;
+                            break;
+                        }
+
                         archivo.read((char*)&salas[contador].maquinas[i].mediciones[j].lecturas[k].diastolica, sizeof(double));
+                        if (archivo.fail()) {
+                            lectura_valida = false;
+                            break;
+                        }
                     } 
                     else {
                         // temperatura, oxígeno o ECG
                         archivo.read((char*)&salas[contador].maquinas[i].mediciones[j].lecturas[k].valor, sizeof(double));
+                        if (archivo.fail()) {
+                            lectura_valida = false;
+                            break;
+                        }
                     }
                 }
             }
